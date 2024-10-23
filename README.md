@@ -4,6 +4,7 @@
 # Link Activity : https://miro.com/app/board/uXjVLaAPr68=/?share_link_id=673849783500
 # Link UI UX : https://www.figma.com/design/r1QdSYYC5JIqCM7Im6cf9W/Project-Administratif-Kehadiran-Karyawan-%2F-Pegawai?node-id=0-1&t=w0z4OowSPveO0Wr5-1
 # Link Trello : https://trello.com/b/h50Ae9Rg/website-administratif-kehadiran-karyawan-pegawai
+# Link Youtube : https://www.youtube.com/watch?v=AECIapa7ccI
 
 # tutorial push ke github pakai gitbash
 # git init
