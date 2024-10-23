@@ -9,5 +9,6 @@
 # git status
 # git add . 
 # git commit -m "Nama bebas( ex: CRUD karyawan)"
-# git remote add origin 
+# git remote add origin https://github.com/Lexuzzz1/Project-Administratif-Kehadiran-Karyawan-Pegawai.git
+# git push -u origin master
 
