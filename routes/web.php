@@ -23,10 +23,18 @@ Route::get('/karyawan/delete/{id}', [KaryawanController::class, 'confirmDelete']
 // Route untuk menghapus karyawan
 Route::post('/karyawan/delete/{id}', [KaryawanController::class, 'destroy'])->name('karyawan.delete');
 
-Route::get('/manajer', function () {
-    return view('manajer/index');
+Route::get('/absen-manajer', function () {
+    return view('manajer/absen');
+});
+
+Route::get('/master', function () {
+    return view('layouts/master');
 });
 
 Route::get('/rekap', function () {
     return view('manajer/rekap');
+});
+
+Route::get('/rekapAllPegawai', function () {
+    return view('manajer/rekapAll');
 });
