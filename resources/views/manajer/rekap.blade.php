@@ -103,40 +103,4 @@
 
 @endsection
 
-@section('spc-css')
-<style>
-  #searchInput:focus {
-    outline: none;
-    /* Menghilangkan outline default */
-    border: 2px solid transparent;
-    /* Mengatur border menjadi transparan saat fokus */
-    box-shadow: none;
-    /* Menghilangkan shadow */
-  }
-</style>
-@endsection
 
-@section('spc-js')
-<script>
-  const searchInput = document.getElementById('searchInput');
-
-  searchInput.addEventListener('keyup', function() {
-    const input = this.value.toLowerCase();
-    const rows = document.querySelectorAll('#myTable tbody tr');
-
-    rows.forEach(function(row) {
-      const cells = row.querySelectorAll('td');
-      let rowText = '';
-      cells.forEach(function(cell) {
-        rowText += cell.textContent.toLowerCase() + ' ';
-      });
-
-      if (rowText.includes(input)) {
-        row.style.display = '';
-      } else {
-        row.style.display = 'none';
-      }
-    });
-  });
-</script>
-@endsection

@@ -1,6 +1,19 @@
 <?php
+
+use App\Http\Controllers\AbsensiController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\IzinCutiController;
 use App\Http\Controllers\KaryawanController;
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
 
 Route::get('/', function () {
     return view('welcome');
@@ -35,6 +48,4 @@ Route::get('/rekap', function () {
     return view('manajer/rekap');
 });
 
-Route::get('/rekapAllPegawai', function () {
-    return view('manajer/rekapAll');
-});
+Route::get('rekapAll',[AbsensiController::class,'index'])->name('karyawan.index');
