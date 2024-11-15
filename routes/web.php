@@ -1,9 +1,14 @@
 <?php
 
 use App\Http\Controllers\AbsensiController;
+use App\Http\Controllers\DepartemenController;
+use App\Http\Controllers\GolonganController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IzinCutiController;
 use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\JabatanController;
+use App\Http\Controllers\RoleController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,25 +21,24 @@ use App\Http\Controllers\KaryawanController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('layouts/master');
 });
 // Route untuk menampilkan semua karyawan
 Route::get('/karyawan', [KaryawanController::class, 'index'])->name('karyawan.index');
 
 // Route untuk menampilkan form tambah karyawan
-Route::match(['get', 'post'], '/karyawan/create', [KaryawanController::class, 'create'])->name('karyawan.create');
+Route::get('/karyawan/create', [KaryawanController::class, 'create'])->name('karyawan.create');
+
+Route::post('/karyawan/store', [KaryawanController::class, 'store'])->name('karyawan.store');
 
 // Route untuk menampilkan form edit karyawan
-Route::get('/karyawan/edit/{id}', [KaryawanController::class, 'edit'])->name('karyawan.edit');
+Route::get('/karyawan/edit/{karyawan}', [KaryawanController::class, 'edit'])->name('karyawan.edit');
 
 // Route untuk mengupdate karyawan
-Route::post('/karyawan/update/{id}', [KaryawanController::class, 'update'])->name('karyawan.update');
-
-// Route untuk menampilkan konfirmasi hapus karyawan
-Route::get('/karyawan/delete/{id}', [KaryawanController::class, 'confirmDelete'])->name('karyawan.confirmDelete');
+Route::post('/karyawan/update/{karyawan}', [KaryawanController::class, 'update'])->name('karyawan.update');
 
 // Route untuk menghapus karyawan
-Route::post('/karyawan/delete/{id}', [KaryawanController::class, 'destroy'])->name('karyawan.delete');
+Route::get('/karyawan/delete/{karyawan}', [KaryawanController::class, 'delete'])->name('karyawan.delete');
 
 Route::get('/absen-manajer', function () {
     return view('manajer/absen');
@@ -48,4 +52,37 @@ Route::get('/rekap', function () {
     return view('manajer/rekap');
 });
 
-Route::get('rekapAll',[AbsensiController::class,'index'])->name('karyawan.index');
+Route::get('rekapAll',[AbsensiController::class,'index'])->name('rekapAll');
+
+
+// Golongan
+Route::get('golongan',[GolonganController::class,'index'])->name('golongan.index');
+Route::get('/golongan/create', [GolonganController::class, 'create'])->name('golongan.create');
+Route::post('/golongan/store', [GolonganController::class, 'store'])->name('golongan.store');
+Route::get('/golongan/edit/{golongan}', [GolonganController::class, 'edit'])->name('golongan.edit');
+Route::post('/golongan/update/{golongan}', [GolonganController::class, 'update'])->name('golongan.update');
+Route::get('/golongan/delete/{golongan}', [GolonganController::class, 'destroy'])->name('golongan.delete');
+
+// jabatan
+Route::get('jabatan',[JabatanController::class,'index'])->name('jabatan.index');
+Route::get('/jabatan/create', [JabatanController::class, 'create'])->name('jabatan.create');
+Route::post('/jabatan/store', [JabatanController::class, 'store'])->name('jabatan.store');
+Route::get('/jabatan/edit/{jabatan}', [JabatanController::class, 'edit'])->name('jabatan.edit');
+Route::post('/jabatan/update/{jabatan}', [JabatanController::class, 'update'])->name('jabatan.update');
+Route::get('/jabatan/delete/{jabatan}', [JabatanController::class, 'destroy'])->name('jabatan.delete');
+
+// departemen
+Route::get('departemen',[DepartemenController::class,'index'])->name('departemen.index');
+Route::get('/departemen/create', [DepartemenController::class, 'create'])->name('departemen.create');
+Route::post('/departemen/store', [DepartemenController::class, 'store'])->name('departemen.store');
+Route::get('/departemen/edit/{departemen}', [DepartemenController::class, 'edit'])->name('departemen.edit');
+Route::post('/departemen/update/{departemen}', [DepartemenController::class, 'update'])->name('departemen.update');
+Route::get('/departemen/delete/{departemen}', [DepartemenController::class, 'destroy'])->name('departemen.delete');
+
+// role
+Route::get('role',[RoleController::class,'index'])->name('role.index');
+Route::get('/role/create', [roleController::class, 'create'])->name('role.create');
+Route::post('/role/store', [roleController::class, 'store'])->name('role.store');
+Route::get('/role/edit/{role}', [roleController::class, 'edit'])->name('role.edit');
+Route::post('/role/update/{role}', [roleController::class, 'update'])->name('role.update');
+Route::get('/role/delete/{role}', [roleController::class, 'destroy'])->name('role.delete');

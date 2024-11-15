@@ -93,6 +93,146 @@
                 <td>Absen</td>
                 <td>0%</td>
               </tr>
+              <tr>
+                <td><i class="bi bi-circle-fill text-success"></i> Jun 22</td>
+                <td>Kamis</td>
+                <td>Benedict Wijaya</td>
+                <td>Hadir</td>
+                <td>100%</td>
+              </tr>
+              <tr>
+                <td><i class="bi bi-circle-fill text-warning"></i> Jun 22</td>
+                <td>Kamis</td>
+                <td>Joseph Adiwiguna</td>
+                <td>Terlambat</td>
+                <td>80%</td>
+              </tr>
+              <tr>
+                <td><i class="bi bi-circle-fill text-danger"></i> Jun 22</td>
+                <td>Kamis</td>
+                <td>Nathanael Kanaya C.</td>
+                <td>Absen</td>
+                <td>0%</td>
+              </tr>
+              <tr>
+                <td><i class="bi bi-circle-fill text-success"></i> Jun 22</td>
+                <td>Kamis</td>
+                <td>Rafael Cavin E.T.</td>
+                <td>Hadir</td>
+                <td>100%</td>
+              </tr>
+              <tr>
+                <td><i class="bi bi-circle-fill text-danger"></i> Jun 22</td>
+                <td>Kamis</td>
+                <td>Bambang Suhendra</td>
+                <td>Absen</td>
+                <td>0%</td>
+              </tr>
+              <tr>
+                <td><i class="bi bi-circle-fill text-success"></i> Jun 22</td>
+                <td>Kamis</td>
+                <td>Benedict Wijaya</td>
+                <td>Hadir</td>
+                <td>100%</td>
+              </tr>
+              <tr>
+                <td><i class="bi bi-circle-fill text-warning"></i> Jun 22</td>
+                <td>Kamis</td>
+                <td>Joseph Adiwiguna</td>
+                <td>Terlambat</td>
+                <td>80%</td>
+              </tr>
+              <tr>
+                <td><i class="bi bi-circle-fill text-danger"></i> Jun 22</td>
+                <td>Kamis</td>
+                <td>Nathanael Kanaya C.</td>
+                <td>Absen</td>
+                <td>0%</td>
+              </tr>
+              <tr>
+                <td><i class="bi bi-circle-fill text-success"></i> Jun 22</td>
+                <td>Kamis</td>
+                <td>Rafael Cavin E.T.</td>
+                <td>Hadir</td>
+                <td>100%</td>
+              </tr>
+              <tr>
+                <td><i class="bi bi-circle-fill text-danger"></i> Jun 22</td>
+                <td>Kamis</td>
+                <td>Bambang Suhendra</td>
+                <td>Absen</td>
+                <td>0%</td>
+              </tr>
+              <tr>
+                <td><i class="bi bi-circle-fill text-success"></i> Jun 22</td>
+                <td>Kamis</td>
+                <td>Benedict Wijaya</td>
+                <td>Hadir</td>
+                <td>100%</td>
+              </tr>
+              <tr>
+                <td><i class="bi bi-circle-fill text-warning"></i> Jun 22</td>
+                <td>Kamis</td>
+                <td>Joseph Adiwiguna</td>
+                <td>Terlambat</td>
+                <td>80%</td>
+              </tr>
+              <tr>
+                <td><i class="bi bi-circle-fill text-danger"></i> Jun 22</td>
+                <td>Kamis</td>
+                <td>Nathanael Kanaya C.</td>
+                <td>Absen</td>
+                <td>0%</td>
+              </tr>
+              <tr>
+                <td><i class="bi bi-circle-fill text-success"></i> Jun 22</td>
+                <td>Kamis</td>
+                <td>Rafael Cavin E.T.</td>
+                <td>Hadir</td>
+                <td>100%</td>
+              </tr>
+              <tr>
+                <td><i class="bi bi-circle-fill text-danger"></i> Jun 22</td>
+                <td>Kamis</td>
+                <td>Bambang Suhendra</td>
+                <td>Absen</td>
+                <td>0%</td>
+              </tr>
+              <tr>
+                <td><i class="bi bi-circle-fill text-success"></i> Jun 22</td>
+                <td>Kamis</td>
+                <td>Benedict Wijaya</td>
+                <td>Hadir</td>
+                <td>100%</td>
+              </tr>
+              <tr>
+                <td><i class="bi bi-circle-fill text-warning"></i> Jun 22</td>
+                <td>Kamis</td>
+                <td>Joseph Adiwiguna</td>
+                <td>Terlambat</td>
+                <td>80%</td>
+              </tr>
+              <tr>
+                <td><i class="bi bi-circle-fill text-danger"></i> Jun 22</td>
+                <td>Kamis</td>
+                <td>Nathanael Kanaya C.</td>
+                <td>Absen</td>
+                <td>0%</td>
+              </tr>
+              <tr>
+                <td><i class="bi bi-circle-fill text-success"></i> Jun 22</td>
+                <td>Kamis</td>
+                <td>Rafael Cavin E.T.</td>
+                <td>Hadir</td>
+                <td>100%</td>
+              </tr>
+              <tr>
+                <td><i class="bi bi-circle-fill text-danger"></i> Jun 22</td>
+                <td>Kamis</td>
+                <td>Bambang Suhendra</td>
+                <td>Absen</td>
+                <td>0%</td>
+              </tr>
             </tbody>
           </table>
         </div>

@@ -50,13 +50,13 @@
 <div class="container">
     <h2>Apakah Anda yakin ingin menghapus karyawan berikut?</h2>
     <p><strong>Nama:</strong> {{ $karyawan->nama }}</p>
-    <p><strong>Departemen:</strong> {{ $karyawan->departemen }}</p>
-    <p><strong>Jabatan:</strong> {{ $karyawan->jabatan }}</p>
-    <p><strong>Golongan:</strong> {{ $karyawan->golongan }}</p>
+    <p><strong>Departemen:</strong> {{ $karyawan->id_departemen }}</p>
+    <p><strong>Jabatan:</strong> {{ $karyawan->id_jabatan }}</p>
+    <p><strong>Golongan:</strong> {{ $karyawan->id_golongan }}</p>
     <p><strong>Alamat:</strong> {{ $karyawan->alamat }}</p>
-    <p><strong>No HP:</strong> {{ $karyawan->no_hp }}</p>
+    <p><strong>No HP:</strong> {{ $karyawan->no_telepon }}</p>
 
-    <form method="post" action="{{ route('karyawan.delete', $karyawan->id) }}">
+    <form method="post" action="{{ route('karyawan.delete', $karyawan->karyawan_id) }}">
         @csrf
         <button type="submit" class="button">Hapus</button>
         <a href="{{ route('karyawan.index') }}" class="button button-cancel">Batal</a>

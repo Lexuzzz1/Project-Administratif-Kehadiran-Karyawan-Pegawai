@@ -12,12 +12,16 @@ class IzinCuti extends Model
     protected $table = 'izin_cuti'; // Tentukan nama tabel jika tidak sesuai default
 
     protected $fillable = [
-        'name',
-        'department',
+        'id',
+        'id_karyawan',
         'position',
         'alasan_izin',
         'tanggal_awal',
         'tanggal_akhir',
-        'berkas'
+        'berkas',
+        'status',
     ];
+
+    public $incrementing =false;
+    protected $keyType='string';
 }

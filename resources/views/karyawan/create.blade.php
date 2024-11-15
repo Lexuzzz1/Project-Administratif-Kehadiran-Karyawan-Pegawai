@@ -1,83 +1,74 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tambah Karyawan</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background: #007bff;
-            color: #fff;
-            padding: 10px 20px;
-            text-align: center;
-        }
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        label {
-            display: block;
-            margin: 10px 0 5px;
-        }
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        .button {
-            background: #007bff;
-            color: #fff;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body>
+@extends('layouts.master')
 
-<header>
-    <h1>Tambah Karyawan</h1>
-</header>
-
-<div class="container">
-    <form method="post" action="{{ route('karyawan.create') }}">
-        @csrf
-        <label>Nama:</label>
-        <input type="text" name="nama" required>
-
-        <label>Departemen:</label>
-        <input type="text" name="departemen" required>
-
-        <label>Jabatan:</label>
-        <input type="text" name="jabatan" required>
-
-        <label>Golongan:</label>
-        <input type="text" name="golongan" required>
-
-        <label>Alamat:</label>
-        <input type="text" name="alamat" required>
-
-        <label>No HP:</label>
-        <input type="text" name="no_hp" required>
-
-        <button type="submit" class="button">Simpan</button>
-    </form>
-    <a href="{{ route('karyawan.index') }}">Kembali</a>
-</div>
-
-</body>
-</html>
+@section('web-content')
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-header bg-primary text-white text-center">
+                <h1>Tambah Karyawan</h1>
+            </div>
+            <div class="card-body">
+                <form method="post" action="{{ route('karyawan.store') }}">
+                    @csrf
+                    <div class="form-group mb-3">
+                        <label for="departemen">Departemen :</label>
+                        <select id="departemen" name="departemen" class="form-control" required>
+                            <option class="text-secondary">Masukan Departemen</option>
+                            @foreach ($departemens as $departemen)
+                                <option value="{{$departemen->id_departemen}}">{{$departemen->id_departemen}}-{{$departemen->nama_departemen}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="jabatan">Jabatan :</label>
+                        <select id="jabatan" name="jabatan" class="form-control" required>
+                            <option class="text-secondary">Masukan Jabatan</option>
+                            @foreach ($jabatans as $jabatan)
+                                <option value="{{$jabatan->id_jabatan}}">{{$jabatan->id_jabatan}}-{{$jabatan->nama_jabatan}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="role">Role :</label>
+                        <select id="role" name="role" class="form-control" required>
+                            <option class="text-secondary">Masukan Role</option>
+                            @foreach ($roles as $role)
+                                <option value="{{$role->id_role}}">{{$role->id_role}}-{{$role->nama_role}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="golongan">Golongan :</label>
+                        <select id="golongan" name="golongan" class="form-control" required>
+                            <option class="text-secondary">Masukan Golongan</option>
+                            @foreach ($golongans as $golongan)
+                                <option value="{{$golongan->id_golongan}}">{{$golongan->id_golongan}}-{{$golongan->nama_golongan}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="nama">Nama :</label>
+                        <input type="text" class="form-control" id="nama" name="nama" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="alamat">Alamat :</label>
+                        <input type="text" class="form-control" id="alamat" name="alamat" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="email">Email :</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="password">Password :</label>
+                        <input type="text" class="form-control" id="password" name="password" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="no_telepon">No Telepon :</label>
+                        <input type="text" class="form-control" id="no_telepon" name="no_telepon" required>
+                    </div>
+                    <button type="submit" class="btn btn-success">Simpan</button>
+                    <a href="{{ route('karyawan.index') }}" class="btn btn-secondary ml-2">Kembali</a>
+                </form>
+            </div>
+        </div>
+    </div>
+@endsection

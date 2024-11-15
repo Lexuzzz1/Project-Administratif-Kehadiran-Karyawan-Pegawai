@@ -20,7 +20,7 @@
       <!-- Sidebar -->
       @include('layouts.sidebar')
       <!-- Main Content -->
-      <div class="col">
+      <div class="col main">
         <!-- Header table -->
         @yield('web-content')
       </div>

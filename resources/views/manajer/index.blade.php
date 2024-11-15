@@ -25,61 +25,69 @@
                 </li>
             </ul>
         </nav>
-        <table class="table table-bordered text-center align-items-center" id="myTable">
-            <thead class="table-primary">
-                <tr>
-                    <th>ID</th>
-                    <th>Karyawan</th>
-                    <th>Jam Masuk</th>
-                    <th>Jam Keluar</th>
-                    <th>Jenis Presensi</th>
-                    <th>Status</th>
-                    <th>Persetujuan</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($absensiAll as $absen)
-                <tr>
-                    <td>{{$absen->absen_id}}</td>
-                    <td>{{$absen->id_karyawan}}</td>
-                    <td>{{$absen->waktu_masuk}}</td>
-                    <td>{{$absen->waktu_keluar}}</td>
-                    <td>{{$absen->jenis_presensi}}</td>
-                    @if($absen->status == 'hadir')
-                        <td class="bg-success">
-                            <div class="text-white">
-                                <i class="bi bi-check-circle-fill"></i>
-                                <p>{{$absen->status}}</p>
-                            </div>
-                        </td>
-                    @elseif($absen->status == 'cuti')
-                    <td class="bg-warning">
-                        <div class="text-white">
-                            <i class="bi bi-alarm-fill"></i>
-                            <p>{{$absen->status}}</p>
-                        </div>
-                    </td>
-                    @elseif($absen->status == 'tidak hadir')
-                    <td class="bg-danger">
-                        <div class="text-white">
-                            <i class="bi bi-x-lg"></i>
-                            <p>{{$absen->status}}</p>
-                        </div>
-                    </td>
+        <div class="card p-2">
+            <table class="table table-bordered tabel-striped text-center align-items-center" id="myTable">
+                <thead class="table-primary">
+                    <tr>
+                        <th>ID</th>
+                        <th>Karyawan</th>
+                        <th>Jam Masuk</th>
+                        <th>Jam Keluar</th>
+                        <th>Jenis Presensi</th>
+                        <th>Status</th>
+                        <th>Persetujuan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if($absensiAll->isEmpty())
+                    <tr>
+                        <td colspan="10"><h3>Tidak Ada Data</h3></td>
+                    </tr>
                     @else
-                        <td>{{$absen->status}}</td>
+                        @foreach($absensiAll as $absen)
+                        <tr>
+                            <td>{{$absen->absen_id}}</td>
+                            <td>{{$absen->id_karyawan}}</td>
+                            <td>{{$absen->waktu_masuk}}</td>
+                            <td>{{$absen->waktu_keluar}}</td>
+                            <td>{{$absen->jenis_presensi}}</td>
+                            @if($absen->status == 'hadir')
+                                <td class="bg-success">
+                                    <div class="text-white">
+                                        <i class="bi bi-check-circle-fill"></i>
+                                        <p>{{$absen->status}}</p>
+                                    </div>
+                                </td>
+                            @elseif($absen->status == 'cuti')
+                            <td class="bg-warning">
+                                <div class="text-white">
+                                    <i class="bi bi-alarm-fill"></i>
+                                    <p>{{$absen->status}}</p>
+                                </div>
+                            </td>
+                            @elseif($absen->status == 'tidak hadir')
+                            <td class="bg-danger">
+                                <div class="text-white">
+                                    <i class="bi bi-x-lg"></i>
+                                    <p>{{$absen->status}}</p>
+                                </div>
+                            </td>
+                            @else
+                                <td>{{$absen->status}}</td>
+                            @endif
+                            @if($absen->approval == 1)
+                                <td class="bg-success text-white">Disetujui</td>
+                            @elseif($absen->approval == 0)
+                                <td class="bg-danger text-white">Tidak Disetujui</td>
+                            @else
+                                <td>{{$absen->approval}}</td>
+                            @endif
+                        </tr>
+                        @endforeach
                     @endif
-                    @if($absen->approval == 1)
-                        <td class="bg-success text-white">Disetujui</td>
-                    @elseif($absen->approval == 0)
-                        <td class="bg-danger text-white">Tidak Disetujui</td>
-                    @else
-                        <td>{{$absen->approval}}</td>
-                    @endif
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
