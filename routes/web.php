@@ -23,3 +23,9 @@ Route::get('/izin-cuti', [IzinCutiController::class, 'create'])->name('izin_cuti
 Route::post('/izin-cuti', [IzinCutiController::class, 'store'])->name('izin_cuti.store');
 Route::get('/karyawan', [KaryawanController::class, 'index'])->name('karyawan.index');
 
+Route::get('/izin-cuti/index', [IzinCutiController::class, 'index'])->name('izin_cuti.index');
+Route::get('/izin-cuti/{id}/edit', [IzinCutiController::class, 'edit'])->name('izin_cuti.edit');
+Route::put('/izin-cuti/{id}', [IzinCutiController::class, 'update'])->name('izin_cuti.update');
+Route::delete('/izin-cuti/{id}', [IzinCutiController::class, 'destroy'])->name('izin_cuti.destroy');
+
+

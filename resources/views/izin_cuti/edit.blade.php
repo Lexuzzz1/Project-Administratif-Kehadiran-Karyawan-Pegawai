@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pengajuan Izin Cuti</title>
+    <title>Update Izin Cuti</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
 
@@ -96,8 +96,8 @@
 <div class="sidebar">
     <h3>Nama Perusahaan</h3>
     <nav class="nav flex-column">
-        <a href="{{ route('izin_cuti.create') }}" class="nav-link">Pengajuan Izin Cuti</a>
-        <a href="{{ route('izin_cuti.index') }}" class="nav-link">Daftar Izin Cuti</a>
+        <a href="#" class="nav-link">Pengajuan Izin</a>
+        <a href="#" class="nav-link">Daftar Izin Cuti</a>
     </nav>
     <div class="logout">
         <a href="#" class="nav-link text-center">Logout</a>
@@ -107,16 +107,10 @@
 <!-- Main Content -->
 <div class="content">
     <div class="header-bar">
-        Pengajuan Izin Cuti
+        Update Izin Cuti
     </div>
 
     <div class="form-container">
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
@@ -127,30 +121,31 @@
             </div>
         @endif
 
-        <form action="{{ route('izin_cuti.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('izin_cuti.update', $izinCuti->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
             <label for="name">Nama:</label>
-            <input type="text" class="form-control" id="name" name="name" placeholder="Cth: Nathanael" required>
+            <input type="text" class="form-control" id="name" name="name" value="{{ $izinCuti->name }}" required>
 
             <label for="department">Departemen:</label>
-            <input type="text" class="form-control" id="department" name="department" placeholder="Cth: Keuangan" required>
+            <input type="text" class="form-control" id="department" name="department" value="{{ $izinCuti->department }}" required>
 
             <label for="position">Jabatan:</label>
-            <input type="text" class="form-control" id="position" name="position" placeholder="Cth: Manajer" required>
+            <input type="text" class="form-control" id="position" name="position" value="{{ $izinCuti->position }}" required>
 
             <label for="alasan_izin">Alasan Izin:</label>
-            <input type="text" class="form-control" id="alasan_izin" name="alasan_izin" placeholder="Cth: Sakit" required>
+            <input type="text" class="form-control" id="alasan_izin" name="alasan_izin" value="{{ $izinCuti->alasan_izin }}" required>
 
             <label for="tanggal_awal">Tanggal Awal:</label>
-            <input type="date" class="form-control" id="tanggal_awal" name="tanggal_awal" required>
+            <input type="date" class="form-control" id="tanggal_awal" name="tanggal_awal" value="{{ $izinCuti->tanggal_awal }}" required>
 
             <label for="tanggal_akhir">Tanggal Akhir:</label>
-            <input type="date" class="form-control" id="tanggal_akhir" name="tanggal_akhir" required>
+            <input type="date" class="form-control" id="tanggal_akhir" name="tanggal_akhir" value="{{ $izinCuti->tanggal_akhir }}" required>
 
-            <label for="berkas">Masukkan Berkas:</label>
+            <label for="berkas">Berkas (Opsional):</label>
             <input type="file" class="form-control" id="berkas" name="berkas">
 
-            <button type="submit" class="btn btn-primary mt-3">Ajukan</button>
+            <button type="submit" class="btn btn-primary mt-3">Update</button>
         </form>
     </div>
 </div>
