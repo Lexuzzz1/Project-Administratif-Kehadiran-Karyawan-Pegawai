@@ -25,6 +25,16 @@
                 <span>Karyawan</span></a>
         </li>
         <li class="nav-item mb-3">
+            <a class="nav-link text-white text-decoration-none" onclick="toggleDropdown()"><i class="bi bi-check-circle"></i>
+                <span class="dropdown-toggle">Absensi</span></a>
+            <div class="dropdown-content">
+                <a href="{{ route('rekapAll') }}" class="nav-link text-white text-decoration-none"><i class="bi bi-people"></i>
+                    <span>Data Absensi</span></a>
+                <a href="{{ route('pencatatan.absensi') }}" class="nav-link text-white text-decoration-none"><i class="bi bi-calendar2-check"></i>
+                    <span>Kehadiran</span></a>
+            </div>
+        </li>
+        <li class="nav-item mb-3">
             <a href="#" class="nav-link text-white text-decoration-none"><i class="bi bi-check-circle"></i>
                 <span>Kehadiran</span></a>
         </li>

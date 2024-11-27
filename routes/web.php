@@ -25,35 +25,26 @@ Route::get('/', function () {
 });
 // Route untuk menampilkan semua karyawan
 Route::get('/karyawan', [KaryawanController::class, 'index'])->name('karyawan.index');
-
 // Route untuk menampilkan form tambah karyawan
 Route::get('/karyawan/create', [KaryawanController::class, 'create'])->name('karyawan.create');
-
 Route::post('/karyawan/store', [KaryawanController::class, 'store'])->name('karyawan.store');
-
 // Route untuk menampilkan form edit karyawan
 Route::get('/karyawan/edit/{karyawan}', [KaryawanController::class, 'edit'])->name('karyawan.edit');
-
 // Route untuk mengupdate karyawan
 Route::post('/karyawan/update/{karyawan}', [KaryawanController::class, 'update'])->name('karyawan.update');
-
 // Route untuk menghapus karyawan
 Route::get('/karyawan/delete/{karyawan}', [KaryawanController::class, 'delete'])->name('karyawan.delete');
 
-Route::get('/absen-manajer', function () {
-    return view('manajer/absen');
-});
 
-Route::get('/master', function () {
-    return view('layouts/master');
-});
 
 Route::get('/rekap', function () {
     return view('manajer/rekap');
 });
 
 Route::get('rekapAll',[AbsensiController::class,'index'])->name('rekapAll');
-
+Route::get('/pencatatan', [AbsensiController::class,'create'])->name('pencatatan.absensi');
+Route::post('/pencatatan/store', [AbsensiController::class,'store'])->name('pencatatan.store');
+Route::post('/pencatatan/update/{absensi}', [AbsensiController::class,'update'])->name('pencatatan.update');
 
 // Golongan
 Route::get('golongan',[GolonganController::class,'index'])->name('golongan.index');

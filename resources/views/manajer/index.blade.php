@@ -36,6 +36,7 @@
                         <th>Jenis Presensi</th>
                         <th>Status</th>
                         <th>Persetujuan</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -46,7 +47,7 @@
                     @else
                         @foreach($absensiAll as $absen)
                         <tr>
-                            <td>{{$absen->absen_id}}</td>
+                            <td>{{$absen->absensi_id}}</td>
                             <td>{{$absen->id_karyawan}}</td>
                             <td>{{$absen->waktu_masuk}}</td>
                             <td>{{$absen->waktu_keluar}}</td>
@@ -82,6 +83,15 @@
                             @else
                                 <td>{{$absen->approval}}</td>
                             @endif
+
+                            <td>
+                                @if (!$absen->waktu_keluar)
+                                    <form action="{{route('pencatatan.update',['absensi'=>$absen->absensi_id])}}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-primary">Pulang</button>
+                                    </form>
+                                @endif
+                            </td>                            
                         </tr>
                         @endforeach
                     @endif
