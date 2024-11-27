@@ -5,23 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class IzinCuti extends Model
+class absensi extends Model
 {
     use HasFactory;
-
-    protected $table = 'izin_cuti'; // Tentukan nama tabel jika tidak sesuai default
+    protected $table = 'absensi';
 
     protected $fillable = [
-        'id',
+        'absen_id',
         'id_karyawan',
-        'position',
-        'alasan_izin',
-        'tanggal_awal',
-        'tanggal_akhir',
-        'berkas',
+        'waktu_masuk',
+        'waktu_keluar',
+        'jenis_presensi',
         'status',
+        'approval'
     ];
+
+    protected $primaryKey = 'absen_id';
 
     public $incrementing =false;
     protected $keyType='string';
+
 }
