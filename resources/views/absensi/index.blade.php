@@ -14,25 +14,32 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Employee ID</th>
                 <th>Check In</th>
-                {{-- <th>Created At</th>
-                <th>Updated At</th> --}}
+                <th>Check Out</th> <!-- Kolom Waktu Keluar -->
+                <th>Jenis Presensi</th> <!-- Kolom Jenis Presensi -->
+                <th>Status</th> <!-- Kolom Status -->
+                <th>Approval</th> <!-- Kolom Approval -->
             </tr>
         </thead>
         <tbody>
-            @foreach($attendance as $item)
+            @foreach($absensi as $item)
                 <tr>
-                    <td>{{ $item->id }}</td>
-                    <td>{{ $item->employee_id }}</td>
-                    <td>{{ $item->check_in }}</td>
-                    {{-- <td>{{ $item->created_at }}</td>
-                    <td>{{ $item->updated_at }}</td> --}}
+                    <td>{{ $item->id_karyawan }}</td> <!-- Ganti 'employee_id' menjadi 'id_karyawan' -->
+                    <td>{{ $item->waktu_masuk }}</td> <!-- Ganti 'check_in' menjadi 'waktu_masuk' -->
+                    <td>{{ $item->waktu_keluar }}</td> <!-- Kolom Waktu Keluar -->
+                    <td>{{ $item->jenis_presensi }}</td> <!-- Kolom Jenis Presensi -->
+                    <td>{{ $item->status }}</td> <!-- Kolom Status -->
+                    <td>{{ $item->approval }}</td> <!-- Kolom Approval -->
                 </tr>
             @endforeach
         </tbody>
     </table>
+
+    <!-- Tambahkan navigasi paginasi di bawah tabel -->
+    <div class="d-flex justify-content-center">
+        {{ $absensi->links() }}
+    </div>
 </div>
 
 @endsection

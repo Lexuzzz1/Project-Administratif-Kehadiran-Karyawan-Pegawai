@@ -1,40 +1,27 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Models;
 
-use Illuminate\Http\Request;
-use App\Models\Attendance;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class AbsensiController extends Controller
+class Absensi extends Model
 {
-    // Menampilkan halaman daftar absensi
-    public function index()
-    {
-        $attendance = Attendance::all();  // Mengambil semua data absensi dari tabel 'attendances'
-        return view('absensi.index', compact('attendance'));
-    }
+    use HasFactory;
 
-    // Menampilkan halaman form tambah absensi
-    public function create()
-    {
-        return view('absensi.absensi');
-    }
+    // Tentukan nama tabel jika berbeda dengan nama model
+    protected $table = 'absensi';
 
-    // Menyimpan data absensi baru
-    public function store(Request $request)
-    {
-        // Validasi input
-        $request->validate([
-            'employee_id' => 'required|integer',
-            'check_in' => 'required|date',
-        ]);
+    // Tentukan kolom yang bisa diisi
+    protected $fillable = [
+        'id_karyawan',
+        'waktu_masuk',
+        'waktu_keluar',
+        'jenis_presensi',
+        'status',
+        'approval',
+    ];
 
-        // Simpan data absensi ke tabel 'attendances'
-        $attendance = new Attendance();
-        $attendance->employee_id = $request->employee_id;
-        $attendance->check_in = $request->check_in;
-        $attendance->save();
-
-        return redirect()->route('attendance.index')->with('success', 'Absensi berhasil disimpan!');
-    }
+    // Tentukan jika ada timestamp otomatis
+    public $timestamps = false; // Atau ubah sesuai kebutuhan
 }
