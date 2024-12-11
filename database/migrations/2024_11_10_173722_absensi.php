@@ -14,15 +14,16 @@ return new class extends Migration
     public function up()
     {
         Schema::create('absensi', function (Blueprint $table) {
-            $table->string('absensi_id',10)->primary();
             $table->string('id_karyawan',10);
-            $table->foreign('id_karyawan')->references('karyawan_id')->on('karyawan');
+            $table->foreign('id_karyawan')->references('id_karyawan')->on('karyawan');
             $table->dateTime('waktu_masuk');
-            $table->dateTime('waktu_keluar');
+            $table->dateTime('waktu_keluar')->nullable();
             $table->string('jenis_presensi');
             $table->string('status');
-            $table->binary('approval');
+            $table->boolean('approval');
             $table->timestamps();
+
+            $table->primary(['id_karyawan', 'waktu_masuk']);
         });
     }
 

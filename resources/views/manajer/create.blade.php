@@ -5,7 +5,12 @@
         <div class="card-header bg-primary text-white">
             <h5 class="card-title">List Pegawai</h5>
         </div>
-        <form action="{{route('pencatatan.store')}}" method="POST">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                {{ implode('', $errors->all(':message')) }}
+            </div>
+        @endif
+        <form action="{{ route('pencatatan.store') }}" method="POST">
             @csrf
             <!-- Absen semua -->
             <div class="d-flex justify-content-between">
@@ -14,9 +19,12 @@
                         <h4>Tandai Semua Pegawai</h4>
                     </div>
                     <div class="d-flex m-2">
-                        <button type="button" class="btn btn-outline-primary mx-1" onclick="toggleButton('Hadir')">Hadir</button>
-                        <button type="button" class="btn btn-outline-warning mx-1" onclick="toggleButton('Telat')">Telat</button>
-                        <button type="button" class="btn btn-outline-danger mx-1" onclick="toggleButton('Absen')">Absen</button>
+                        <button type="button" class="btn btn-outline-primary mx-1"
+                            onclick="toggleButton('Hadir')">Hadir</button>
+                        <button type="button" class="btn btn-outline-warning mx-1"
+                            onclick="toggleButton('Telat')">Telat</button>
+                        <button type="button" class="btn btn-outline-danger mx-1"
+                            onclick="toggleButton('Absen')">Absen</button>
                     </div>
                 </div>
                 <div class="m-2">
@@ -53,17 +61,30 @@
                                     <br>
                                     <span class="grey-text">Email : {{ $karyawan->email }}</span>
                                     <!-- Tambahkan input hidden untuk mengirim id_karyawan -->
-                                    <input type="hidden" name="attendance[{{ $karyawan->id_karyawan }}][id_karyawan]" value="{{ $karyawan->id_karyawan }}">
+                                    <input type="hidden" name="attendance[{{ $karyawan->id_karyawan }}][id_karyawan]"
+                                        value="{{ $karyawan->id_karyawan }}">
                                 </td>
                                 <td>
-                                    <input type="radio" class="btn-check" name="attendance[{{ $karyawan->id_karyawan }}][status]" id="hadir{{ $karyawan->id_karyawan }}" value="Hadir" autocomplete="off" onclick="countTotals()">
-                                    <label class="btn btn-outline-primary mx-1" for="hadir{{ $karyawan->id_karyawan }}">Hadir</label>
+                                    <input type="radio" class="btn-check"
+                                        name="attendance[{{ $karyawan->id_karyawan }}][status]"
+                                        id="hadir{{ $karyawan->id_karyawan }}" value="Hadir" autocomplete="off"
+                                        onclick="countTotals()">
+                                    <label class="btn btn-outline-primary mx-1"
+                                        for="hadir{{ $karyawan->id_karyawan }}">Hadir</label>
 
-                                    <input type="radio" class="btn-check" name="attendance[{{ $karyawan->id_karyawan }}][status]" id="telat{{ $karyawan->id_karyawan }}" value="Telat" autocomplete="off" onclick="countTotals()">
-                                    <label class="btn btn-outline-warning mx-1" for="telat{{ $karyawan->id_karyawan }}">Telat</label>
+                                    <input type="radio" class="btn-check"
+                                        name="attendance[{{ $karyawan->id_karyawan }}][status]"
+                                        id="telat{{ $karyawan->id_karyawan }}" value="Telat" autocomplete="off"
+                                        onclick="countTotals()">
+                                    <label class="btn btn-outline-warning mx-1"
+                                        for="telat{{ $karyawan->id_karyawan }}">Telat</label>
 
-                                    <input type="radio" class="btn-check" name="attendance[{{ $karyawan->id_karyawan }}][status]" id="absen{{ $karyawan->id_karyawan }}" value="Absen" autocomplete="off" onclick="countTotals()">
-                                    <label class="btn btn-outline-danger mx-1" for="absen{{ $karyawan->id_karyawan }}">Absen</label>
+                                    <input type="radio" class="btn-check"
+                                        name="attendance[{{ $karyawan->id_karyawan }}][status]"
+                                        id="absen{{ $karyawan->id_karyawan }}" value="Absen" autocomplete="off"
+                                        onclick="countTotals()">
+                                    <label class="btn btn-outline-danger mx-1"
+                                        for="absen{{ $karyawan->id_karyawan }}">Absen</label>
                                 </td>
                                 <td>
                                     <i class="bi bi-envelope notes-icon"></i>
@@ -106,6 +127,24 @@
 
             document.querySelectorAll('input[type="radio"]').forEach(radio => {
                 radio.addEventListener('change', countTotals);
+            });
+
+            document.querySelector('form').addEventListener('submit', function(e) {
+                // Dapatkan semua baris karyawan
+                const rows = document.querySelectorAll('tbody tr');
+
+                rows.forEach(row => {
+                    // Cek apakah ada radio button yang dipilih di baris ini
+                    const selected = row.querySelector('input[type="radio"]:checked');
+
+                    // Jika tidak ada status yang dipilih, hapus input hidden id_karyawan
+                    if (!selected) {
+                        const hiddenInput = row.querySelector('input[type="hidden"]');
+                        if (hiddenInput) {
+                            hiddenInput.parentNode.removeChild(hiddenInput);
+                        }
+                    }
+                });
             });
         }
     </script>

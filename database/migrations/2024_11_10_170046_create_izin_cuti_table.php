@@ -16,7 +16,7 @@ return new class extends Migration
     Schema::create('izin_cuti', function (Blueprint $table) {
         $table->string('id',10)->primary();
         $table->string('id_karyawan',10);
-        $table->foreign('id_karyawan')->references('karyawan_id')->on('karyawan');
+        $table->foreign('id_karyawan')->references('id_karyawan')->on('karyawan');
         $table->string('alasan_izin');
         $table->date('tanggal_awal');
         $table->date('tanggal_akhir');

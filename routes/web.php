@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IzinCutiController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\JabatanController;
+use App\Http\Controllers\RekapAbsensiController;
 use App\Http\Controllers\RoleController;
 
 /*
@@ -37,14 +38,19 @@ Route::get('/karyawan/delete/{karyawan}', [KaryawanController::class, 'delete'])
 
 
 
-Route::get('/rekap', function () {
-    return view('manajer/rekap');
+// Route::get('/rekap', function () {
+//     return view('manajer/rekap');
+// });
+
+Route::get('/rekapIndividu', function () {
+    return view('manajer/rekapAll');
 });
 
 Route::get('rekapAll',[AbsensiController::class,'index'])->name('rekapAll');
 Route::get('/pencatatan', [AbsensiController::class,'create'])->name('pencatatan.absensi');
 Route::post('/pencatatan/store', [AbsensiController::class,'store'])->name('pencatatan.store');
-Route::post('/pencatatan/update/{absensi}', [AbsensiController::class,'update'])->name('pencatatan.update');
+Route::post('/pencatatan/update/{id_karyawan}/{waktu_masuk}', [AbsensiController::class,'update'])->name('pencatatan.update');
+Route::get('laporanAbsensi',[RekapAbsensiController::class,'index'])->name('laporan');
 
 // Golongan
 Route::get('golongan',[GolonganController::class,'index'])->name('golongan.index');

@@ -49,3 +49,8 @@
         </div>
     </div>
 @endsection
+
+@section('spc-js')
+    <script src="{{URL::asset('js/searchBar.js')}}"></script>
+@endsection
+

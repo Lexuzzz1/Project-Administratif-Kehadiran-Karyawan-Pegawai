@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\absensi;
 use App\Models\Karyawan;
-use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AbsensiController extends Controller
 {
@@ -24,11 +24,12 @@ class AbsensiController extends Controller
         // Mengambil karyawan yang belum terdaftar di absensi hari ini
         $karyawans = karyawan::leftJoin('absensi', function ($join) use ($today) {
             $join->on('karyawan.id_karyawan', 'absensi.id_karyawan')
-                ->whereDate('absensi.waktu_masuk', $today);
+                ->whereDate('absensi.waktu_masuk', $today)
+                ->whereDate('absensi.waktu_keluar', $today);
         })
             ->whereNull('absensi.id_karyawan') // Menampilkan karyawan yang tidak memiliki absensi pada hari ini
-            ->get(['karyawan.*']);        
-        
+            ->get(['karyawan.*']);
+
         return view('manajer.create', [
             'karyawans' => $karyawans
         ]);
@@ -52,37 +53,47 @@ class AbsensiController extends Controller
             'attendance.*.status.in' => 'Status tidak valid, pilih antara Hadir, Telat, atau Absen',
         ]);
 
-        $tahun = strval(date('y'));
-        $bulan = strval(date('m'));
-        $hari = strval(date('d'));
-
-        $header = 'A-' . $hari . $bulan . $tahun;
+        // dd($data);
 
         foreach ($data['attendance'] as $dataAbsen) {
-            $id = IdGenerator::generate(['table' => 'absensi', 'field' => 'absensi_id', 'length' => 10, 'prefix' => $header]);
-            $absen = new absensi();
-            $absen->absensi_id = $id;
-            $absen->id_karyawan = $dataAbsen['id_karyawan'];
-            $absen->waktu_masuk = now();
-            $absen->jenis_presensi = 'onsite';
-            $absen->status = $dataAbsen['status'];
-            $absen->approval = 1;
-            $absen->save();
+            $absen = absensi::where('id_karyawan', $dataAbsen['id_karyawan'])
+                ->whereDate('waktu_masuk', date('Y-m-d'))
+                ->first();
+
+            if ($absen) {
+                // Jika sudah ada, update waktu_keluar
+                DB::table('absensi')
+                ->where('id_karyawan', $absen->id_karyawan)
+                ->where('waktu_masuk', $absen->waktu_masuk)
+                ->update(['waktu_keluar' => date('Y-m-d h:i:s')]);
+            } else {
+                // Jika belum ada, buat data baru
+                $absen = new absensi();
+                $absen->id_karyawan = $dataAbsen['id_karyawan'];
+                $absen->waktu_masuk = date('Y-m-d H:i:s');
+                $absen->jenis_presensi = 'onsite';
+                $absen->status = $dataAbsen['status'];
+                $absen->approval = 1;
+                $absen->save();
+            }
         }
 
         // Redirect dengan pesan sukses
         return redirect()->route('rekapAll');
     }
 
-    public function update(absensi $absensi)
+
+    public function update($id_karyawan, $waktu_masuk)
     {
-        if (!$absensi) {
+        if (!$id_karyawan && !$waktu_masuk) {
             return redirect()->back()->with('error', 'Data absensi tidak ditemukan.');
         }
 
-        // Update waktu keluar dengan waktu sekarang menggunakan Carbon
-        $absensi->waktu_keluar = now(); // Anda bisa menggunakan format yang sesuai jika diperlukan
-        $absensi->save(); // Simpan perubahan ke database
+        DB::table('absensi')
+            ->where('id_karyawan', $id_karyawan)
+            ->where('waktu_masuk', $waktu_masuk)
+            ->update(['waktu_keluar' => date('Y-m-d h:i:s')]);
+
 
         return redirect()->route('rekapAll');
     }

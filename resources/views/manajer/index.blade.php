@@ -29,13 +29,11 @@
             <table class="table table-bordered tabel-striped text-center align-items-center" id="myTable">
                 <thead class="table-primary">
                     <tr>
-                        <th>ID</th>
                         <th>Karyawan</th>
                         <th>Jam Masuk</th>
                         <th>Jam Keluar</th>
                         <th>Jenis Presensi</th>
                         <th>Status</th>
-                        <th>Persetujuan</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -47,7 +45,6 @@
                     @else
                         @foreach($absensiAll as $absen)
                         <tr>
-                            <td>{{$absen->absensi_id}}</td>
                             <td>{{$absen->id_karyawan}}</td>
                             <td>{{$absen->waktu_masuk}}</td>
                             <td>{{$absen->waktu_keluar}}</td>
@@ -82,16 +79,7 @@
                                 <td class="bg-danger text-white">Tidak Disetujui</td>
                             @else
                                 <td>{{$absen->approval}}</td>
-                            @endif
-
-                            <td>
-                                @if (!$absen->waktu_keluar)
-                                    <form action="{{route('pencatatan.update',['absensi'=>$absen->absensi_id])}}" method="POST">
-                                        @csrf
-                                        <button type="submit" class="btn btn-primary">Pulang</button>
-                                    </form>
-                                @endif
-                            </td>                            
+                            @endif          
                         </tr>
                         @endforeach
                     @endif

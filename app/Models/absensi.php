@@ -11,7 +11,6 @@ class absensi extends Model
     protected $table = 'absensi';
 
     protected $fillable = [
-        'absensi_id',
         'id_karyawan',
         'waktu_masuk',
         'waktu_keluar',
@@ -20,7 +19,7 @@ class absensi extends Model
         'approval'
     ];
 
-    protected $primaryKey = 'absensi_id';
+    // protected $primaryKey = ['id_karyawan','waktu_masuk',];
 
     public $incrementing =false;
     protected $keyType='string';
