@@ -9,9 +9,9 @@ class Karyawan extends Model
 {
     use HasFactory;
 
-    protected $table = 'karyawan'; // Nama tabel menggunakan huruf kecil
-    protected $primaryKey = 'karyawan_id'; // Kolom primary key
-    public $timestamps = false; // Jika tabel tidak menggunakan kolom created_at dan updated_at
+    protected $table = 'karyawan';
+    protected $primaryKey = 'karyawan_id';
+    public $timestamps = false; 
 
     // Kolom yang dapat diisi
     protected $fillable = [

@@ -10,30 +10,36 @@ class QRCodeController extends Controller
     // Menampilkan halaman untuk generate QR Code
     public function showGenerateForm()
     {
-        return view('qr.generate'); // Menampilkan form untuk input data QR Code
+        return view('qr.generate');  // Pastikan view 'qr.generate' sudah tersedia
     }
 
-    // Menghasilkan QR Code berdasarkan data yang dimasukkan oleh pengguna
+    // Menghasilkan QR Code
     public function generateQRCode(Request $request)
     {
-        // Validasi input data
+        // Validasi inputan untuk nama
         $validatedData = $request->validate([
-            'data' => 'required|string|max:255', // Menjamin input adalah string yang valid
+            'name' => 'required|string|max:255',  // Validasi nama
         ]);
 
-        // Ambil data dari input form
-        $data = $validatedData['data'];
+        // Mengambil data nama yang diinputkan
+        $name = $validatedData['name'];
 
-        // Generate QR Code dengan data yang diberikan
-        $qrCode = QrCode::size(300)->generate($data);
+        
+        $idKaryawan = rand(1000, 9999);
 
-        // Kirim QR Code ke view untuk ditampilkan
-        return view('qr.generate', compact('qrCode', 'data'));
+        // Membuat URL untuk presensi dengan nama karyawan
+        $presensiUrl = url('/presensi/' . urlencode($name));  // Menggunakan nama yang diinputkan
+
+        // Menghasilkan QR Code dengan URL presensi
+        $qrCode = QrCode::size(300)->generate($presensiUrl);
+
+        // Mengirim QR Code, nama dan ID Karyawan ke view
+        return view('qr.generate', compact('qrCode', 'name', 'idKaryawan'));
     }
 
     // Menampilkan halaman scan QR Code
     public function scan()
     {
-        return view('qr.scan');  // Halaman untuk scan QR
+        return view('qr.scan'); // Pastikan file `scan.blade.php` tersedia di direktori `resources/views/qr`
     }
 }

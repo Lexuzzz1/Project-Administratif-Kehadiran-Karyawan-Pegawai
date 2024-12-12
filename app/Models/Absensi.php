@@ -22,6 +22,6 @@ class Absensi extends Model
         'approval',
     ];
 
-    // Tentukan jika ada timestamp otomatis
-    public $timestamps = false; // Atau ubah sesuai kebutuhan
+
+    public $timestamps = false;
 }

@@ -4,19 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Absensi;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;  // Untuk logging error
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class AbsensiController extends Controller
 {
-    // Fungsi untuk mengambil semua data absensi dengan paginasi
+    // Fungsi untuk menampilkan semua data absensi
     public function index()
     {
         try {
-            // Menggunakan paginasi 10 data per halaman
-            $absensi = Absensi::paginate(10); // Ambil data absensi dengan paginasi
-            
-            return view('absensi.index', compact('absensi')); // Kirim data ke view index
+            $absensi = Absensi::paginate(10);
+            return view('absensi.index', compact('absensi'));
         } catch (\Exception $e) {
             Log::error('Error retrieving absensi data: ' . $e->getMessage());
             return response()->json([
@@ -26,37 +23,46 @@ class AbsensiController extends Controller
         }
     }
 
-    // Fungsi untuk mengambil data absensi berdasarkan id_karyawan
-    public function show($id_karyawan)
+    // Fungsi untuk presensi berdasarkan QR Code
+    public function presensi($id_karyawan)
     {
         try {
-            $absensi = Absensi::where('id_karyawan', $id_karyawan)->get();
+            // Periksa apakah presensi sudah ada hari ini
+            $today = now()->toDateString();
+            $existingPresensi = Absensi::where('id_karyawan', $id_karyawan)
+                ->whereDate('waktu_masuk', $today)
+                ->first();
 
-            if ($absensi->isEmpty()) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Data absensi untuk karyawan ini tidak ditemukan.'
-                ], 404);
+            if ($existingPresensi) {
+                return view('qr.success', [
+                    'message' => 'Anda sudah melakukan presensi hari ini.',
+                ]);
             }
 
-            return response()->json([
-                'success' => true,
-                'data' => $absensi
-            ], 200);
+            // Catat presensi baru
+            Absensi::create([
+                'id_karyawan' => $id_karyawan,
+                'waktu_masuk' => now(),
+                'jenis_presensi' => 'Masuk',
+                'status' => 'Hadir',
+                'approval' => null,
+            ]);
+
+            return view('qr.success', [
+                'message' => 'Presensi berhasil dicatat!',
+            ]);
         } catch (\Exception $e) {
-            Log::error('Error retrieving absensi for karyawan ' . $id_karyawan . ': ' . $e->getMessage());
-            return response()->json([
-                'success' => false,
-                'message' => 'Terjadi kesalahan saat mengambil data.'
-            ], 500);
+            Log::error('Error during presensi for karyawan ' . $id_karyawan . ': ' . $e->getMessage());
+            return view('qr.success', [
+                'message' => 'Terjadi kesalahan saat mencatat presensi.',
+            ]);
         }
     }
 
-    // Fungsi untuk menyimpan data absensi
+    // Fungsi untuk menyimpan data absensi manual
     public function store(Request $request)
     {
         try {
-            // Validasi input
             $validated = $request->validate([
                 'id_karyawan' => 'required|integer',
                 'waktu_masuk' => 'required|date_format:Y-m-d H:i:s',
@@ -65,13 +71,10 @@ class AbsensiController extends Controller
                 'approval' => 'nullable|string|max:50',
             ]);
 
-            // Menyimpan data absensi baru
             Absensi::create($validated);
 
-            // Redirect dengan pesan sukses
             return redirect()->route('absensi.index')->with('success', 'Absensi berhasil disimpan!');
         } catch (\Exception $e) {
-            // Log error untuk debugging
             Log::error('Error storing absensi: ' . $e->getMessage());
             return back()->withErrors('Terjadi kesalahan saat menyimpan data absensi.');
         }

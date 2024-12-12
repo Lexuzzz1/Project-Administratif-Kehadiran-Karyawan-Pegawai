@@ -4,15 +4,12 @@
 
 <div class="container">
     <h1>Tambah Absensi</h1>
-
-    <!-- Tampilkan pesan berhasil jika ada -->
     @if (session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
         </div>
     @endif
-
-    <!-- Tampilkan pesan error jika ada -->
+    
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
