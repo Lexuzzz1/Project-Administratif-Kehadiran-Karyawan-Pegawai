@@ -13,18 +13,23 @@
             {!! $qrCode !!}
         </div>
 
-        <p class="text-muted mt-3">ID Karyawan: {{ $idKaryawan }}</p>
+        <p class="text-muted mt-3">Karyawan ID: {{ $karyawan}}</p>
         <p class="text-muted mt-3">Nama: {{ $name }}</p>
+        <p class="text-muted mt-3">Jabatan: {{ $jabatan }}</p>
+        <p class="text-muted mt-3">Golongan: {{ $golongan }}</p>
+        <p class="text-muted mt-3">Departemen: {{ $departemen }}</p>
+        <p class="text-muted mt-3">Alamat: {{ $alamat }}</p>
+        <p class="text-muted mt-3">Email: {{ $email }}</p>
+        <p class="text-muted mt-3">No Telepon: {{ $no_telepon }}</p>
 
         <div id="countdown" class="text-danger mt-4">
             Waktu tersisa: <span id="timer">02:00</span> menit
         </div>
     </div>
 </div>
-
 @endsection
 
-@push('styles')
+@section('styles')
     <style>
         .qr-code-display {
             background-color: #f7f7f7;
@@ -38,38 +43,43 @@
         #countdown {
             font-size: 20px;
             font-weight: bold;
-            transition: all 1ms ease; 
+            transition: all 1ms ease;
         }
     </style>
-@endpush
+@endsection
 
-@push('scripts')
+@section('scripts')
     <script>
-        // Set countdown time (in seconds)
-        let timeRemaining = 2 * 60; // 2 minutes in seconds
-        const countdownElement = document.getElementById("timer");
-        const qrCodeContainer = document.getElementById("qr-code-container");
+        document.addEventListener('DOMContentLoaded', function () {
+    console.log('DOMContentLoaded event fired');  // Untuk debugging
 
-        // Function to update the countdown
-        function updateCountdown() {
-            const minutes = Math.floor(timeRemaining / 60);
-            const seconds = timeRemaining % 60;
+    // Set countdown time (in seconds)
+    let timeRemaining = 2 * 60; // 2 minutes in seconds
+    const countdownElement = document.getElementById("timer");
+    const qrCodeContainer = document.getElementById("qr-code-container");
 
-            // Create a string to display the remaining time
-            const timeString = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-            countdownElement.textContent = timeString;
+    // Function to update the countdown
+    function updateCountdown() {
+        const minutes = Math.floor(timeRemaining / 60);
+        const seconds = timeRemaining % 60;
 
-            if (timeRemaining <= 0) {
-                // Time's up, hide the QR code and stop the countdown
-                qrCodeContainer.style.display = "none";
-                clearInterval(countdownInterval);
-            } else {
-                timeRemaining--;
-                console.log(timeRemaining);
-            }
+        // Create a string to display the remaining time
+        const timeString = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        countdownElement.textContent = timeString;
+
+        if (timeRemaining <= 0) {
+            // Time's up, hide the QR code and stop the countdown
+            qrCodeContainer.style.display = "none";
+            clearInterval(countdownInterval);
+        } else {
+            timeRemaining--;
         }
-        const countdownInterval = setInterval(updateCountdown, 1000);
+    }
 
-        updateCountdown();
+    const countdownInterval = setInterval(updateCountdown, 1000);
+
+    updateCountdown(); // Initial call to display countdown immediately
+});
+
     </script>
-@endpush
+@endsection
