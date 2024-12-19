@@ -11,7 +11,7 @@ class AbsensiController extends Controller
 {
     public function index()
     {
-        $data = absensi::all();
+        $data = absensi::all()->sortByDesc('waktu_masuk');
         return view('manajer.index', [
             'absensiAll' => $data
         ]);

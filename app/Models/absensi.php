@@ -19,9 +19,13 @@ class absensi extends Model
         'approval'
     ];
 
-    // protected $primaryKey = ['id_karyawan','waktu_masuk',];
+    protected $primaryKey = ['id_karyawan','waktu_masuk',];
 
     public $incrementing =false;
     protected $keyType='string';
 
+    public function karyawan()
+    {
+        return $this->belongsTo(Karyawan::class, 'id_karyawan', 'id_karyawan');
+    }
 }

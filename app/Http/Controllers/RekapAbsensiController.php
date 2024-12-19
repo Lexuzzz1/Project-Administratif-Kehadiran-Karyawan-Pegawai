@@ -12,12 +12,71 @@ class RekapAbsensiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, $id = null)
     {
-        $data = absensi::all()->sortByDesc('created_at');
-        return view('manajer.rekap',[
-            'absensis'=>$data,
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+        
+        $data = $id 
+            ? Absensi::where('id_karyawan', $id) 
+            : Absensi::query();
+
+            
+        if ($startDate && $endDate) {
+            $data->whereBetween('created_at', [
+                date('Y-m-d 00:00:00', strtotime($startDate)),
+                date('Y-m-d 23:59:59', strtotime($endDate)),
+            ]);
+        } elseif ($endDate) {
+            $data->where('created_at', '<=', date('Y-m-d 23:59:59', strtotime($endDate)));
+        } elseif ($startDate) {
+            $data->where('created_at', '>=', date('Y-m-d 00:00:00', strtotime($startDate)));
+        }
+
+        $data = $data->get()->sortByDesc('created_at');
+        $rekapKaryawan = $this->calculateRekapKaryawan($data);
+
+        $statusCounts = $data->groupBy('status')->map(function ($group) {
+            return $group->count();
+        });
+
+        // Ensure the counts are properly initialized
+        $hadirCount = $statusCounts->get('Hadir', 0);
+        $telatCount = $statusCounts->get('Telat', 0);
+        $absenCount = $statusCounts->get('Absen', 0);
+        $totalEmployees = $data->count();
+
+        return view('manajer.rekap', [
+            'absensis' => $data,
+            'rekapKaryawan' => $rekapKaryawan,
+            'hadirCount' => $hadirCount,
+            'telatCount' => $telatCount,
+            'absenCount' => $absenCount,
+            'totalEmployees' => $totalEmployees,
         ]);
+    }
+
+
+    /**
+     * Calculate attendance summary for each employee.
+     * 
+     * @param \Illuminate\Support\Collection $data
+     * @return \Illuminate\Support\Collection
+     */
+    private function calculateRekapKaryawan($data)
+    {
+        return $data->groupBy('id_karyawan')->map(function ($absensi) {
+            $statusCounts = $absensi->groupBy('status')->map(function ($group) {
+                return $group->count();
+            });
+
+            return [
+                'Hadir' => $statusCounts->get('Hadir', 0),
+                'Telat' => $statusCounts->get('Telat', 0),
+                'Absen' => $statusCounts->get('Absen', 0),
+                'Total' => $absensi->count(),
+            ];
+        });
     }
 
     /**

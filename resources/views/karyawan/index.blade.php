@@ -42,13 +42,13 @@
                         <tr>
                             <td>{{ $karyawan->id_karyawan}}</td>
                             <td>{{ $karyawan->nama }}</td>
-                            <td>{{ $karyawan->jabatan }}</td>
-                            <td>{{ $karyawan->golongan }}</td>
-                            <td>{{ $karyawan->departemen }}</td>
+                            <td>{{ $karyawan->cariJabatan->nama_jabatan }}</td>
+                            <td>{{ $karyawan->cariGolongan->nama_golongan }}</td>
+                            <td>{{ $karyawan->cariDepartemen->nama_departemen }}</td>
                             <td>{{ $karyawan->alamat }}</td>
                             <td>{{ $karyawan->email }}</td>
                             <td>{{ $karyawan->no_telepon }}</td>
-                            <td>{{ $karyawan->role }}</td>
+                            <td>{{ $karyawan->cariRole->nama_role }}</td>
                             <td>
                                 <a href="{{ route('karyawan.edit', ['karyawan'=>$karyawan->id_karyawan]) }}" class="button"><button type="button" class="btn btn-warning"><i class="bi bi-pencil-square"></i></button></a>
                                 <a href="{{ route('karyawan.delete', ['karyawan'=>$karyawan->id_karyawan]) }}" class="button button-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus?')">

@@ -32,6 +32,8 @@
                     <span>Data Absensi</span></a>
                 <a href="{{ route('pencatatan.absensi') }}" class="nav-link text-white text-decoration-none"><i class="bi bi-calendar2-check"></i>
                     <span>Kehadiran</span></a>
+                <a href="{{ route('laporanAbsensi') }}" class="nav-link text-white text-decoration-none"><i class="bi bi-file-earmark-bar-graph"></i>
+                    <span>Laporan Absensi</span></a>
             </div>
         </li>
         <li class="nav-item mb-3">

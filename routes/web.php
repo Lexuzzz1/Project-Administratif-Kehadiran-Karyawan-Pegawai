@@ -50,7 +50,7 @@ Route::get('rekapAll',[AbsensiController::class,'index'])->name('rekapAll');
 Route::get('/pencatatan', [AbsensiController::class,'create'])->name('pencatatan.absensi');
 Route::post('/pencatatan/store', [AbsensiController::class,'store'])->name('pencatatan.store');
 Route::post('/pencatatan/update/{id_karyawan}/{waktu_masuk}', [AbsensiController::class,'update'])->name('pencatatan.update');
-Route::get('laporanAbsensi',[RekapAbsensiController::class,'index'])->name('laporan');
+Route::get('laporanAbsensi/{id?}',[RekapAbsensiController::class,'index'])->name('laporanAbsensi');
 
 // Golongan
 Route::get('golongan',[GolonganController::class,'index'])->name('golongan.index');
