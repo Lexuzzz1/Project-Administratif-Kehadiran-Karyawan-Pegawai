@@ -11,7 +11,7 @@ class absensi extends Model
     protected $table = 'absensi';
 
     protected $fillable = [
-        'absen_id',
+        'absensi_id',
         'id_karyawan',
         'waktu_masuk',
         'waktu_keluar',
@@ -20,9 +20,13 @@ class absensi extends Model
         'approval'
     ];
 
-    protected $primaryKey = 'absen_id';
+    protected $primaryKey = 'absensi_id';
 
     public $incrementing =false;
     protected $keyType='string';
 
+    public function karyawan()
+    {
+        return $this->belongsTo(Karyawan::class, 'id_karyawan', 'id_karyawan');
+    }
 }

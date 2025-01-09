@@ -3,12 +3,14 @@
 use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\DepartemenController;
 use App\Http\Controllers\GolonganController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IzinCutiController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RekapAbsensiController;
+use App\Http\Controllers\QRCodeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,50 +23,37 @@ use App\Http\Controllers\RoleController;
 |
 */
 
-use Illuminate\Support\Facades\Route;
-
 Route::middleware(['guest'])->group(function () {
     Route::get('/', [LoginController::class, 'index'])->name('login');
     Route::post('/', [LoginController::class, 'login']);
 });
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/admin', [UserController::class, 'index'])->name('admin')->middleware('userAccess:admin');
-    Route::get('/manajer', [UserController::class, 'index'])->name('manajer')->middleware('userAccess:manajer');
-    Route::get('/pegawai', [UserController::class, 'index'])->name('pegawai')->middleware('userAccess:pegawai');
-    Route::get('/logout', [LoginController::class, 'logout']);
+// Route::middleware(['auth'])->group(function () {
+Route::get('/krywn', function () {
+    return view('layouts/master');
 });
 // Route untuk menampilkan semua karyawan
 Route::get('/karyawan', [KaryawanController::class, 'index'])->name('karyawan.index');
-
 // Route untuk menampilkan form tambah karyawan
 Route::get('/karyawan/create', [KaryawanController::class, 'create'])->name('karyawan.create');
-
 Route::post('/karyawan/store', [KaryawanController::class, 'store'])->name('karyawan.store');
-
 // Route untuk menampilkan form edit karyawan
 Route::get('/karyawan/edit/{karyawan}', [KaryawanController::class, 'edit'])->name('karyawan.edit');
-
 // Route untuk mengupdate karyawan
 Route::post('/karyawan/update/{karyawan}', [KaryawanController::class, 'update'])->name('karyawan.update');
-
 // Route untuk menghapus karyawan
 Route::get('/karyawan/delete/{karyawan}', [KaryawanController::class, 'delete'])->name('karyawan.delete');
 
-Route::get('/absen-manajer', function () {
-    return view('manajer/absen');
-});
-
-Route::get('/master', function () {
-    return view('layouts/master');
-});
-
-Route::get('/rekap', function () {
-    return view('manajer/rekap');
-});
+//ROUTE UNTUK QR
+Route::get('/generate-qrcode', [QRCodeController::class, 'generate'])->name('qr.form');
+Route::get('/qr-scanner', [QRCodeController::class, 'scan'])->name('qr.scanner');
+ Route::get('/qr-scanner/{code}', [QRCodeController::class, 'presensiqr'])->name('qr.process');
 
 Route::get('rekapAll', [AbsensiController::class, 'index'])->name('rekapAll');
-
+Route::get('/pencatatan', [AbsensiController::class, 'create'])->name('pencatatan.absensi');
+Route::post('/pencatatan/store/{code}', [AbsensiController::class, 'store'])->name('pencatatan.store');
+Route::post('/pencatatan/update/{absensi}', [AbsensiController::class, 'update'])->name('pencatatan.update');
+Route::get('laporanAbsensi/{id?}', [RekapAbsensiController::class, 'index'])->name('laporanAbsensi');
 
 // Golongan
 Route::get('golongan', [GolonganController::class, 'index'])->name('golongan.index');
@@ -97,7 +86,5 @@ Route::post('/role/store', [roleController::class, 'store'])->name('role.store')
 Route::get('/role/edit/{role}', [roleController::class, 'edit'])->name('role.edit');
 Route::post('/role/update/{role}', [roleController::class, 'update'])->name('role.update');
 Route::get('/role/delete/{role}', [roleController::class, 'destroy'])->name('role.delete');
-Route::get('/izin-cuti/index', [IzinCutiController::class, 'index'])->name('izin_cuti.index');
-Route::get('/izin-cuti/{id}/edit', [IzinCutiController::class, 'edit'])->name('izin_cuti.edit');
-Route::put('/izin-cuti/{id}', [IzinCutiController::class, 'update'])->name('izin_cuti.update');
-Route::delete('/izin-cuti/{id}', [IzinCutiController::class, 'destroy'])->name('izin_cuti.destroy');
+Route::get('/logout', [LoginController::class, 'logout']);
+// });

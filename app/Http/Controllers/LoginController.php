@@ -4,14 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {
-    function index(){
+    function index()
+    {
         return view('login.index');
     }
 
-    function login(Request $request){
+    function login(Request $request)
+    {
         $request->validate([
             'email' => 'required',
             'password' => 'required'
@@ -25,20 +28,25 @@ class LoginController extends Controller
             'password' => $request->password,
         ];
 
-        if(Auth::attempt($infoLogin)){
-            if(Auth::user()->role == 'admin'){
-                return redirect('/admin');
-            } elseif (Auth::user()->role == 'manajer'){
-                return redirect('/manajer');
-            } elseif (Auth::user()->role == 'pegawai'){
-                return redirect('/pegawai');
+        // dd($infoLogin);
+
+        if (Auth::attempt($infoLogin)) {
+            // Log::info('Login berhasil', ['user' => Auth::user()]);
+            if (Auth::user()->role == 'r1') {
+                return redirect('/krywn');
+            } elseif (Auth::user()->role == 'r2') {
+                return redirect('/krywn');
+            } elseif (Auth::user()->role == 'r3') {
+                return redirect('/krywn');
             }
-        }else{
+        } else {
+            // Log::info('Login gagal', $infoLogin);
             return redirect('')->withErrors('Username dan Password tidak sesuai')->withInput();
         }
     }
 
-    function logout(){
+    function logout()
+    {
         Auth::logout();
         return redirect('');
     }

@@ -15,24 +15,17 @@
 </head>
 
 <body>
-    <div class="container-fluid">
-        <div class="row">
-          <!-- Sidebar -->
-          <div class="col-md-3 col-lg-2 p-0">
-            @include('layouts.sidebar')
-          </div>
-      
-          <!-- Main Content -->
-          <div class="col-md-9 col-lg-10">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-              <h1 class="h2">Welcome {{ auth()->user()->name }}</h1>
-            </div>
-            <!-- Header table -->
-            @yield('web-content')
-          </div>
-        </div>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      @include('layouts.sidebar')
+      <!-- Main Content -->
+      <div class="col main">
+        <!-- Header table -->
+        @yield('web-content')
       </div>
-      
+    </div>
+  </div>
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
