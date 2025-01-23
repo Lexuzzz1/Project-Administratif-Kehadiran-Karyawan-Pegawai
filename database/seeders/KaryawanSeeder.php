@@ -27,6 +27,7 @@ class KaryawanSeeder extends Seeder
                 'email' => 'jono@gmail.com',
                 'password' => bcrypt('Adm12345'),
                 'no_telepon' => '082543138132',
+                'unique_face_id' => 'muka_jono',
             ],
             [
                 'id_karyawan' => 'KAR-000002',
@@ -39,6 +40,7 @@ class KaryawanSeeder extends Seeder
                 'email' => 'agus@gmail.com',
                 'password' => bcrypt('Mnj12345'),
                 'no_telepon' => '083543138132',
+                'unique_face_id' => 'muka_agus',
             ],
             [
                 'id_karyawan' => 'KAR-000003',
@@ -51,6 +53,7 @@ class KaryawanSeeder extends Seeder
                 'email' => 'asep@gmail.com',
                 'password' => bcrypt('Pgw12345'),
                 'no_telepon' => '084543138132',
+                'unique_face_id' => 'muka_asep',
             ],
         ];
 

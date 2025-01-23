@@ -45,7 +45,8 @@
             <!-- Persenan kehadiran -->
             <div class="m-4 ms-3">
               <h1 class="display-3 text-primary" id="persentaseKehadiran">0 %</h1>
-              <p class="text-muted">Persentase Kehadiran Total</p>
+              <p class="text-muted d-inline">Persentase Kehadiran Total Hari ini, </p>
+              <b>{{ date('l, j F Y', strtotime(today()))}}</b>
             </div>
           </div>
           
@@ -97,18 +98,18 @@
                       <th>Tanggal</th>
                       <th>Nama</th>
                       <th>Status</th>
-                      <th>Total Kehadiran</th>
+                      {{-- <th>Total Kehadiran</th> --}}
                   </tr>
               </thead>
               <tbody>
                 @foreach ($absensis as $absensi)
                   <tr>
                     <td>
-                      {{ date('l, j F', strtotime($absensi->waktu_masuk)) }}
+                      {{ date('l, j F Y', strtotime($absensi->waktu_masuk)) }}
                     </td>
                     <td>
                       <a class="text-decoration-none text-dark" href="{{route('laporanAbsensi',['id'=>$absensi->id_karyawan])}}">
-                         {{$absensi->karyawan->nama}} 
+                         {{$absensi->cariKaryawan->nama}} 
                       </a>
                     </td>
                     <td>
@@ -120,12 +121,12 @@
                           <i class="bi bi-circle-fill text-danger"></i>
                       @endif
                       {{ $absensi->status }}</td>
-                      <td>
+                      {{-- <td>
                         @php
                           $rekap = $rekapKaryawan[$absensi->id_karyawan] ?? ['Hadir' => 0, 'Telat' => 0, 'Absen' => 0, 'Total' => 0];
                         @endphp
                         Hadir: {{ $rekap['Hadir'] }}
-                      </td>
+                      </td> --}}
                   </tr>
                 @endforeach
               </tbody>
@@ -149,6 +150,7 @@
     document.addEventListener("DOMContentLoaded", function () {
       // Ambil data dari HTML
       const attendanceData = document.getElementById("attendanceData");
+      const today = new Date();
       const hadirCount = parseInt(attendanceData.dataset.hadir);
       const telatCount = parseInt(attendanceData.dataset.telat);
       const absenCount = parseInt(attendanceData.dataset.absen);

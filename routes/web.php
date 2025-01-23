@@ -24,12 +24,12 @@ use App\Http\Controllers\QRCodeController;
 |
 */
 
-Route::middleware(['guest'])->group(function () {
+// Route::middleware(['guest'])->group(function () {
     Route::get('/', [LoginController::class, 'index'])->name('login');
     Route::post('/', [LoginController::class, 'login']);
-});
+// });
 
-// Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth'])->group(function () {
 Route::get('/krywn', function () {
     return view('layouts/master');
 });
@@ -89,7 +89,6 @@ Route::get('/role/edit/{role}', [roleController::class, 'edit'])->name('role.edi
 Route::post('/role/update/{role}', [roleController::class, 'update'])->name('role.update');
 Route::get('/role/delete/{role}', [roleController::class, 'destroy'])->name('role.delete');
 Route::get('/logout', [LoginController::class, 'logout']);
-// });
+});
 
 Route::post('/absensi/authenticate', [AbsensiController::class, 'authenticate'])->name('absensi.authenticate');
-

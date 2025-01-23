@@ -13,6 +13,7 @@ class QRCodeController extends Controller
 {
     public function generate()
     {
+        date_default_timezone_set('Asia/Jakarta');
         $uniqueCode = uniqid(); // Generate unique QR code
         $expiredAt = Carbon::now()->addMinutes(10); // Expiry time: 10 minutes
 
@@ -34,6 +35,8 @@ class QRCodeController extends Controller
     }
 
     public function presensiqr(Request $request, $code){
+        date_default_timezone_set('Asia/Jakarta');
+
         $qrCode = QrCode::where('code', $code)->first();
 
         if (!$qrCode || now()->greaterThan($qrCode->expired_at)) {
@@ -58,11 +61,11 @@ class QRCodeController extends Controller
                 $absen->id_karyawan = $karyawan->id_karyawan;
                 $absen->waktu_masuk = date('Y-m-d H:i:s');
                 $absen->jenis_presensi = 'onsite';
-                $absen->status = 'Masuk';
+                $absen->status = 'Hadir';
                 $absen->approval = 1;
                 $absen->save();
             }
 
-        return response()->json(['message' => 'Presensi berhasil dicatat'], 200);
+        return redirect()->back()->with('success', 'Absensi sudah dilakukan ' . today());
     }
 }

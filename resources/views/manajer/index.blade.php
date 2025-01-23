@@ -45,9 +45,9 @@
                     @else
                         @foreach($absensiAll as $absen)
                         <tr>
-                            <td>{{$absen->id_karyawan}}</td>
-                            <td>{{$absen->waktu_masuk}}</td>
-                            <td>{{$absen->waktu_keluar}}</td>
+                            <td>{{$absen->cariKaryawan->nama}}</td>
+                            <td>{{ $absen->waktu_masuk ? date('j M Y H:i:s', strtotime($absen->waktu_masuk)) : '' }}</td>
+                            <td>{{ $absen->waktu_keluar ? date('j M Y H:i:s', strtotime($absen->waktu_keluar)) : '' }}</td>
                             <td>{{$absen->jenis_presensi}}</td>
                             @if($absen->status == 'Hadir')
                                 <td class="bg-success text-white">

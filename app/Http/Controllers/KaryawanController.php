@@ -69,7 +69,7 @@ class KaryawanController extends Controller
         $karyawan->email = $request->get('email');
         $karyawan->password = Hash::make($request->get('password'));
         $karyawan->no_telepon = $request->get('no_telepon');
-        $karyawan->unique_face_id = $request->get('unique_face_id');
+        $karyawan->unique_face_id = $request->get('unique_face_id') ?? 'muka_' . $id;
 
         $karyawan->save();
         return redirect()->route('karyawan.index');

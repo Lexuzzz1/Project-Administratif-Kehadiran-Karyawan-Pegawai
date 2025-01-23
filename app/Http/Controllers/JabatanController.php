@@ -45,7 +45,7 @@ class JabatanController extends Controller
             'nama_jabatan.unique'=>'Nama Jabatan sudah pernah ditambahkan '
         ]);
 
-        $id = IdGenerator::generate(['table'=>'jabatan','field'=>'id_jabatan','length'=>'10', 'prefix'=>'JBTN-']);
+        $id = IdGenerator::generate(['table'=>'jabatan','field'=>'id_jabatan','length'=>'10', 'prefix'=>'JBTN-','reset_on_prefix_change' => true, ]);
 
         $jabatan = new jabatan();
         $jabatan->id_jabatan = $id;

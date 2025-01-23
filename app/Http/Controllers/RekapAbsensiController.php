@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\absensi;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class RekapAbsensiController extends Controller
@@ -14,6 +15,8 @@ class RekapAbsensiController extends Controller
      */
     public function index(Request $request, $id = null)
     {
+        date_default_timezone_set('Asia/Jakarta');
+
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
         
@@ -21,7 +24,7 @@ class RekapAbsensiController extends Controller
             ? Absensi::where('id_karyawan', $id) 
             : Absensi::query();
 
-            
+        // Filter tanggal
         if ($startDate && $endDate) {
             $data->whereBetween('created_at', [
                 date('Y-m-d 00:00:00', strtotime($startDate)),
@@ -34,49 +37,47 @@ class RekapAbsensiController extends Controller
         }
 
         $data = $data->get()->sortByDesc('created_at');
-        $rekapKaryawan = $this->calculateRekapKaryawan($data);
 
-        $statusCounts = $data->groupBy('status')->map(function ($group) {
-            return $group->count();
-        });
-
+        if (!$id) {
+            if(!$startDate && !$endDate){
+                $statusCounts = $data->filter(function ($item) {
+                    $waktuMasuk = Carbon::parse($item->waktu_masuk);
+                    return $waktuMasuk->isToday();
+                })->groupBy('status')->map(function ($group) {
+                    return $group->count();
+                });
+            }else{
+                $statusCounts = $data->groupBy('status')->map(function ($group) {
+                    return $group->count();
+                });
+            }
+        }
+        else{
+            $statusCounts = $data->filter(function ($item) {
+                $waktuMasuk = Carbon::parse($item->waktu_masuk);
+                return $waktuMasuk->isSameMonth();
+            })->groupBy('status')->map(function ($group) {
+                return $group->count();
+            });
+        }
+        
+        // dd($statusCounts);
         // Ensure the counts are properly initialized
         $hadirCount = $statusCounts->get('Hadir', 0);
         $telatCount = $statusCounts->get('Telat', 0);
         $absenCount = $statusCounts->get('Absen', 0);
-        $totalEmployees = $data->count();
+        // dd(now());
+        $totalEmployees = $hadirCount+$telatCount+$absenCount;
+        // dd($totalEmployees, now());
 
         return view('manajer.rekap', [
             'absensis' => $data,
-            'rekapKaryawan' => $rekapKaryawan,
+            // 'rekapKaryawan' => $rekapKaryawan,
             'hadirCount' => $hadirCount,
             'telatCount' => $telatCount,
             'absenCount' => $absenCount,
             'totalEmployees' => $totalEmployees,
         ]);
-    }
-
-
-    /**
-     * Calculate attendance summary for each employee.
-     * 
-     * @param \Illuminate\Support\Collection $data
-     * @return \Illuminate\Support\Collection
-     */
-    private function calculateRekapKaryawan($data)
-    {
-        return $data->groupBy('id_karyawan')->map(function ($absensi) {
-            $statusCounts = $absensi->groupBy('status')->map(function ($group) {
-                return $group->count();
-            });
-
-            return [
-                'Hadir' => $statusCounts->get('Hadir', 0),
-                'Telat' => $statusCounts->get('Telat', 0),
-                'Absen' => $statusCounts->get('Absen', 0),
-                'Total' => $absensi->count(),
-            ];
-        });
     }
 
     /**

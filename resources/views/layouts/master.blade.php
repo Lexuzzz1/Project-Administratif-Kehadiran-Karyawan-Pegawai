@@ -21,6 +21,11 @@
       @include('layouts.sidebar')
       <!-- Main Content -->
       <div class="col main">
+        @if (session('success'))
+            <div class="alert alert-success">
+              <p>{{ session('success') }}</p>
+            </div>
+        @endif
         <!-- Header table -->
         @yield('web-content')
       </div>

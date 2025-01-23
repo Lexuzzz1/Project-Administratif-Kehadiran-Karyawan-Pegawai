@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\absensi;
 use App\Models\Karyawan;
+use Carbon\Carbon;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class AbsensiController extends Controller
 {
@@ -55,7 +57,7 @@ class AbsensiController extends Controller
         ]);
 
         // dd($data);
-
+        date_default_timezone_set('Asia/Jakarta');
         foreach ($data['attendance'] as $dataAbsen) {
             $absen = absensi::where('id_karyawan', $dataAbsen['id_karyawan'])
                 ->whereDate('waktu_masuk', date('Y-m-d'))
@@ -75,6 +77,7 @@ class AbsensiController extends Controller
                 $absen->jenis_presensi = 'onsite';
                 $absen->status = $dataAbsen['status'];
                 $absen->approval = 1;
+                // dd($absen);
                 $absen->save();
             }
         }
@@ -123,7 +126,7 @@ class AbsensiController extends Controller
 
             if ($absensi) {
                 // Jika sudah ada, update waktu_keluar
-                $absensi->waktu_keluar = now();
+                $absensi->waktu_keluar = date('Y-m-d H:i:s');
                 $absensi->save();
 
                 return response()->json([
@@ -135,7 +138,7 @@ class AbsensiController extends Controller
                 // Jika belum ada, buat data absensi baru
                 $absensi = new Absensi();
                 $absensi->id_karyawan = $karyawan->id_karyawan;
-                $absensi->waktu_masuk = now();
+                $absensi->waktu_masuk = date('Y-m-d H:i:s');
                 $absensi->jenis_presensi = 'onsite';
                 $absensi->status = 'Hadir';
                 $absensi->approval = 1;
@@ -149,7 +152,7 @@ class AbsensiController extends Controller
             }
 
         } catch (\Exception $e) {
-            \Log::error($e->getMessage()); // Log error untuk debugging
+            Log::error($e->getMessage()); // Log error untuk debugging
             return response()->json([
                 'success' => false,
                 'message' => 'Terjadi kesalahan pada server.'
