@@ -19,21 +19,21 @@ class UserAccess
             // Dapatkan peran pengguna saat ini
             $userRole = auth()->user()->role;
 
-        // Cek apakah role sesuai
-        if ($userRole == $role) {
-            return $next($request);
-        }
+            // Cek apakah role sesuai
+            if ($userRole == $role) {
+                return $next($request);
+            }
 
-        // Redirect sesuai role pengguna
-        switch ($userRole) {
-            case 'admin':
-                return redirect()->route('admin');
-            case 'manajer':
-                return redirect()->route('manajer');
-            case 'pegawai':
-                return redirect()->route('pegawai');
-            default:
-                return redirect('/'); // Halaman default jika role tidak dikenali
+            // Redirect sesuai role pengguna
+            switch ($userRole) {
+                case 'admin':
+                    return redirect()->route('krywn');
+                case 'manajer':
+                    return redirect()->route('manajer');
+                case 'karyawan':
+                    return redirect()->route('karyawan');
+                default:
+                    return redirect('/'); // Halaman default jika role tidak dikenali
             }
         }
     }

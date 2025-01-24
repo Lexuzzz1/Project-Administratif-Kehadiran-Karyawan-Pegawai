@@ -29,13 +29,12 @@
             <table class="table table-bordered tabel-striped text-center align-items-center" id="myTable">
                 <thead class="table-primary">
                     <tr>
-                        <th>ID</th>
                         <th>Karyawan</th>
                         <th>Jam Masuk</th>
                         <th>Jam Keluar</th>
                         <th>Jenis Presensi</th>
                         <th>Status</th>
-                        <th>Persetujuan</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -46,31 +45,21 @@
                     @else
                         @foreach($absensiAll as $absen)
                         <tr>
-                            <td>{{$absen->absen_id}}</td>
-                            <td>{{$absen->id_karyawan}}</td>
-                            <td>{{$absen->waktu_masuk}}</td>
-                            <td>{{$absen->waktu_keluar}}</td>
+                            <td>{{$absen->cariKaryawan->nama}}</td>
+                            <td>{{ $absen->waktu_masuk ? date('j M Y H:i:s', strtotime($absen->waktu_masuk)) : '' }}</td>
+                            <td>{{ $absen->waktu_keluar ? date('j M Y H:i:s', strtotime($absen->waktu_keluar)) : '' }}</td>
                             <td>{{$absen->jenis_presensi}}</td>
-                            @if($absen->status == 'hadir')
-                                <td class="bg-success">
-                                    <div class="text-white">
-                                        <i class="bi bi-check-circle-fill"></i>
-                                        <p>{{$absen->status}}</p>
-                                    </div>
+                            @if($absen->status == 'Hadir')
+                                <td class="bg-success text-white">
+                                        {{$absen->status}}
                                 </td>
-                            @elseif($absen->status == 'cuti')
-                            <td class="bg-warning">
-                                <div class="text-white">
-                                    <i class="bi bi-alarm-fill"></i>
-                                    <p>{{$absen->status}}</p>
-                                </div>
+                            @elseif($absen->status == 'Telat')
+                            <td class="bg-warning text-white">
+                                {{$absen->status}}
                             </td>
-                            @elseif($absen->status == 'tidak hadir')
-                            <td class="bg-danger">
-                                <div class="text-white">
-                                    <i class="bi bi-x-lg"></i>
-                                    <p>{{$absen->status}}</p>
-                                </div>
+                            @elseif($absen->status == 'Absen')
+                            <td class="bg-danger text-white">
+                                {{$absen->status}}
                             </td>
                             @else
                                 <td>{{$absen->status}}</td>
@@ -81,7 +70,7 @@
                                 <td class="bg-danger text-white">Tidak Disetujui</td>
                             @else
                                 <td>{{$absen->approval}}</td>
-                            @endif
+                            @endif          
                         </tr>
                         @endforeach
                     @endif
@@ -94,4 +83,5 @@
 @endsection
 
 @section('spc-js')
+    <script src="{{ asset('js/searchBar.js') }}"></script>
 @endsection

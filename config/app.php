@@ -1,10 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Facade;
-<<<<<<< HEAD
-use Illuminate\Support\ServiceProvider;
-=======
->>>>>>> 208d5f64330d0f6451854dc486b2ffafe9860416
 
 return [
 
@@ -144,11 +140,7 @@ return [
 
     'maintenance' => [
         'driver' => 'file',
-<<<<<<< HEAD
-        // 'store' => 'redis',
-=======
         // 'store'  => 'redis',
->>>>>>> 208d5f64330d0f6451854dc486b2ffafe9860416
     ],
 
     /*
@@ -162,9 +154,6 @@ return [
     |
     */
 
-<<<<<<< HEAD
-    'providers' => ServiceProvider::defaultProviders()->merge([
-=======
     'providers' => [
 
         /*
@@ -193,7 +182,6 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
->>>>>>> 208d5f64330d0f6451854dc486b2ffafe9860416
         /*
          * Package Service Providers...
          */
@@ -206,12 +194,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-<<<<<<< HEAD
-    ])->toArray(),
-=======
 
     ],
->>>>>>> 208d5f64330d0f6451854dc486b2ffafe9860416
 
     /*
     |--------------------------------------------------------------------------
@@ -225,11 +209,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-<<<<<<< HEAD
-        // 'Example' => App\Facades\Example::class,
-=======
         // 'ExampleClass' => App\Example\ExampleClass::class,
->>>>>>> 208d5f64330d0f6451854dc486b2ffafe9860416
     ])->toArray(),
 
 ];

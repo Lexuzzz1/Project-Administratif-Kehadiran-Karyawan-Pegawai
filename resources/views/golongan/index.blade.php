@@ -20,7 +20,7 @@
             <table class="table table-bordered table-striped text-center align-items-center" id="myTable">
                 <thead class="table-primary">
                     <tr>
-                        <th>ID</th>
+                        {{-- <th>ID</th> --}}
                         <th>Nama Golongan</th>
                         <th></th>
                     </tr>
@@ -33,7 +33,7 @@
                     @else
                         @foreach ($golongans as $golongan)
                         <tr>
-                            <td>{{ $golongan->id_golongan }}</td>
+                            {{-- <td>{{ $golongan->id_golongan }}</td> --}}
                             <td>{{ $golongan->nama_golongan }}</td>
                             <td>
                                 <a href="{{ route('golongan.edit', ['golongan'=>$golongan->id_golongan]) }}" class="button"><button type="button" class="btn btn-warning"><i class="bi bi-pencil-square"></i></button></a>

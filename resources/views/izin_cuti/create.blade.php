@@ -96,8 +96,7 @@
 <div class="sidebar">
     <h3>Nama Perusahaan</h3>
     <nav class="nav flex-column">
-        <a href="{{ route('izin_cuti.create') }}" class="nav-link">Pengajuan Izin Cuti</a>
-        <a href="{{ route('izin_cuti.index') }}" class="nav-link">Daftar Izin Cuti</a>
+        <a href="#" class="nav-link">Pengaturan</a>
     </nav>
     <div class="logout">
         <a href="#" class="nav-link text-center">Logout</a>
@@ -111,12 +110,14 @@
     </div>
 
     <div class="form-container">
+        <!-- Tampilkan pesan berhasil jika ada -->
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
             </div>
         @endif
 
+        <!-- Tampilkan pesan error jika ada -->
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>

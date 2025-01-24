@@ -23,6 +23,7 @@ class CreateKaryawansTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('no_telepon');
+            $table->string('unique_face_id');
             $table->timestamps();
         });
     }

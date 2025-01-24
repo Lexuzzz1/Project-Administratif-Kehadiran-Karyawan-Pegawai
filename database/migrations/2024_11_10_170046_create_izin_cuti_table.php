@@ -12,19 +12,19 @@ return new class extends Migration
      * @return void
      */
     public function up()
-{
-    Schema::create('izin_cuti', function (Blueprint $table) {
-        $table->string('id',10)->primary();
-        $table->string('id_karyawan',10);
-        $table->foreign('id_karyawan')->references('karyawan_id')->on('karyawan');
-        $table->string('alasan_izin');
-        $table->date('tanggal_awal');
-        $table->date('tanggal_akhir');
-        $table->string('berkas')->nullable();
-        $table->binary('status');
-        $table->timestamps();
-    });
-}
+    {
+        Schema::create('izin_cuti', function (Blueprint $table) {
+            $table->string('id', 10)->primary();
+            $table->string('id_karyawan', 10);
+            $table->foreign('id_karyawan')->references('id_karyawan')->on('karyawan');
+            $table->string('alasan_izin');
+            $table->date('tanggal_awal');
+            $table->date('tanggal_akhir');
+            $table->string('berkas')->nullable();
+            $table->binary('status');
+            $table->timestamps();
+        });
+    }
 
 
     /**
