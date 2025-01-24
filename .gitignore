@@ -1,0 +1,22 @@
+<<<<<<< HEAD
+/.phpunit.cache
+=======
+>>>>>>> 208d5f64330d0f6451854dc486b2ffafe9860416
+/node_modules
+/public/build
+/public/hot
+/public/storage
+/storage/*.key
+/vendor
+.env
+.env.backup
+.env.production
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+auth.json
+npm-debug.log
+yarn-error.log
+/.fleet
+/.idea
+/.vscode

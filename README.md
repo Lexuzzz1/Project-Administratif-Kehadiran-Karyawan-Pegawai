@@ -1,16 +1,38 @@
-# Project-Administratif-Kehadiran-Karyawan-Pegawai
-# link Usecase : https://miro.com/app/board/uXjVLaAEb2g=/?share_link_id=903859728969
-# Link ERD : https://miro.com/app/board/uXjVLZCBT1o=/?share_link_id=555756059498
-# Link Activity : https://miro.com/app/board/uXjVLaAPr68=/?share_link_id=673849783500
-# Link UI UX : https://www.figma.com/design/r1QdSYYC5JIqCM7Im6cf9W/Project-Administratif-Kehadiran-Karyawan-%2F-Pegawai?node-id=0-1&t=w0z4OowSPveO0Wr5-1
-# Link Trello : https://trello.com/b/h50Ae9Rg/website-administratif-kehadiran-karyawan-pegawai
-# Link Youtube : https://www.youtube.com/watch?v=AECIapa7ccI
+Anggota:
+- Nathanael Kanaya Chriesman / 2272018
+- Joseph Adiwiguna Kartawihardja / 2272020
+- Benedict Wijaya / 2272022
+- Rafael Cavin Emmanuel Tuasuun / 2272041
 
-# tutorial push ke github pakai gitbash
-# git init
-# git status
-# git add . 
-# git commit -m "Nama bebas( ex: CRUD karyawan)"
-# git remote add origin https://github.com/Lexuzzz1/Project-Administratif-Kehadiran-Karyawan-Pegawai.git
-# git push -u origin master
+Setup Database (migrations & seeders):
+php artisan migrate
+
+Masukkan Seeders (masukkan sesuai urutan):
+1. php artisan db:seed --class=DepartemenSeeder
+2. php artisan db:seed --class=GolonganSeeder
+3. php artisan db:seed --class=JabatanSeeder
+4. php artisan db:seed --class=RoleSeeder
+5. php artisan db:seed --class=KaryawanSeeder
+
+Setup Aplikasi:
+php artisan serve
+
+Akun Default:
+- Admin:
+  - Username: jono@gmail.com
+  - Pass: Adm12345
+- Manajer:
+  - Username: agus@gmail.com	
+  - Pass: Mnj12345
+- Karyawan:
+  - Username: asep@gmail.com
+  - Pass: Pgw12345
+
+# Link Miro Activity Diagram : https://miro.com/app/board/uXjVLaAPr68=/?share_link_id=809917764691
+# Link Miro ERD : https://miro.com/app/board/uXjVLZCBT1o=/?share_link_id=44441675315
+# Link Miro Use Case : https://miro.com/app/board/uXjVLaAEb2g=/?share_link_id=472950193529
+# Link Trello : https://trello.com/invite/b/6717c18d9f2138c3c82afc12/ATTI055fc39fa0aa362deb7b46e2b9b736f9EA45C201/website-administratif-kehadiran-karyawan-pegawai
+
+
+
 
