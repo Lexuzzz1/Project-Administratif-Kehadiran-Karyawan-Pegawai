@@ -109,7 +109,7 @@ cd Project-Administratif-Kehadiran-Karyawan-Pegawai
 2. Akses aplikasi di browser:
 
    ```
-   http://localhost:8000
+   http://127.0.0.1:8000/
    ```
 
 ---
