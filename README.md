@@ -58,19 +58,13 @@ cd Project-Administratif-Kehadiran-Karyawan-Pegawai
 
 1. Pastikan Anda memiliki server database (MySQL/MariaDB) yang berjalan di mesin Anda.
 
-2. Buat database baru:
-
-   ```sql
-   CREATE DATABASE kehadiran_karyawan;
-   ```
-
-3. Jalankan migrasi database:
+2. Jalankan migrasi database:
 
    ```bash
    php artisan migrate
    ```
 
-4. Masukkan seeders dalam urutan berikut:
+3. Masukkan seeders dalam urutan berikut:
 
    ```bash
    php artisan db:seed --class=DepartemenSeeder
